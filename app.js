@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreDisplay = document.querySelector('span')
     const startBtn = document.querySelector('.start')
 
+    const keyboard = {
+        left: 37,
+        up: 38,
+        right: 39,
+        down: 40
+    }
+
     const width = 10
     let currentIndex = 0 //so first div in our grid
     let appleIndex = 0 //so first div in our grid
@@ -13,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let intervalTime = 0
     let interval = 0
 
+    // for (let i = 0; i < 100; i++) {
+    //     const div = document.createElement('div');
+    //     document.getElementsByClassName("grid").appendChild(div);
+    // }
 
     //to start, and restart the game
     function startGame() {
@@ -30,6 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
         interval = setInterval(moveOutcomes, intervalTime)
     }
 
+    function resetGame() {
+        currentSnake.forEach(index => squares[index].classList.remove('snake'))
+        squares[appleIndex].classList.remove('apple')
+        clearInterval(interval)
+        score = 0
+        scoreDisplay.innerText = score
+    }
+
 
     //function that deals with ALL the ove outcomes of the Snake
     function moveOutcomes() {
@@ -42,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
             (currentSnake[0] - width < 0 && direction === -width) ||  //if snake hits the top
             squares[currentSnake[0] + direction].classList.contains('snake') //if snake goes into itself
         ) {
+            alert("Wasted");
+            resetGame();
             return clearInterval(interval) //this will clear the interval if any of the above happen
         }
 
@@ -78,13 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function control(e) {
         squares[currentIndex].classList.remove('snake')
 
-        if (e.keyCode === 39) {
+        if (e.keyCode === keyboard.right) {
             direction = 1 //if we press the right arrow on our keyboard, the snake will go right one
-        } else if (e.keyCode === 38) {
+        } else if (e.keyCode === keyboard.up) {
             direction = -width // if we press the up arrow, the snake will go back ten divs, appearing to go up
-        } else if (e.keyCode === 37) {
+        } else if (e.keyCode === keyboard.left) {
             direction = -1 // if we press left, the snake will go left one div
-        } else if (e.keyCode === 40) {
+        } else if (e.keyCode === keyboard.down) {
             direction = +width //if we press down, the snake head will instantly appear in the div ten divs from where you are now
         }
     }

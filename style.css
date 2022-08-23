@@ -4,6 +4,7 @@
     display: flex;
     flex-wrap: wrap;
     border-style: solid;
+    background-color: darkseagreen;
 }
 
 .grid div {
@@ -17,4 +18,9 @@
 
 .apple {
     background-color: orangered;
+}
+
+.start {
+    background-color: violet;
+
 }
